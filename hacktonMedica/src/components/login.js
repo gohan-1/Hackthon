@@ -192,7 +192,7 @@ class Login extends Component {
 									Log in
 								</Button>
                             </TabPane>
-                            <TabPane tab="Patient" key="3" style={flexStyle}>
+                            {/* <TabPane tab="Patient" key="3" style={flexStyle}>
                                 <Input className='inputBox' style={{width:"40%"}} value={this.state.patientName} onChange={this.onTextChange.bind(this, 'patientName')} size="small" placeholder="Your Name"/>
                                 <Input className='inputBox' style={{width:"40%"}} value={this.state.age} onChange={this.onTextChange.bind(this, 'age')} size="small" placeholder="Your age"/>
                                 <Button  style={{width:"40%"}} type="primary" onClick={this.registerPatient.bind(this, 'patient')} htmlType="submit" className="login-form-button registerButton">
@@ -201,7 +201,7 @@ class Login extends Component {
 								<Button type="primary"  style={{width:"40%"}} onClick={this.login.bind(this)} htmlType="submit" className="login-form-button loginButton">
 									Log in
 								</Button>
-                            </TabPane>
+                            </TabPane> */}
                         </Tabs>
                     </div> 
                 }

@@ -3,11 +3,12 @@ pragma solidity >=0.4.21 <0.7.0;
 contract Doctor{
     mapping (address =>mapping(address=>uint)) internal doctorToPainent;
     mapping (address=>doctor) internal doctors;
+    mapping(address=> address[]) public patientsList;
 
     struct doctor{
         string name;
         address id;
-        address[] patientsList;
+        // address[] patientsList;
     }
     modifier doctorExist(address _id){
     doctor memory d= doctors[_id];
@@ -17,14 +18,15 @@ contract Doctor{
     }
     function doctorInfo() public view  returns(string memory _name,address[] memory list){
         doctor memory d= doctors[msg.sender];
-        return(d.name,d.patientsList);
+     
+        return(d.name,patientsList[msg.sender]);
     }
 
     function doctorSignUp(string memory _name) public{
         require(keccak256(abi.encodePacked(""))!=keccak256(abi.encodePacked(_name)));
         doctor memory d= doctors[msg.sender];
             require(!(d.id > address(0)),"ID ALREADY EXIST");
-            doctors[msg.sender]=doctor({name:_name,id:msg.sender,patientsList:new address[](0)});
+            doctors[msg.sender]=doctor({name:_name,id:msg.sender});
 
     }
 }

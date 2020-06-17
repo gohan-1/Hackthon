@@ -82,8 +82,13 @@ class Patient extends Component {
     async grantAccess(){
         let { healthRecord, web3 } = this.props.global_vars;
         let accounts= await web3.eth.getAccounts()
+        console.log("doctet"+this.state.doctorId)
         
         if(this.state.doctorId){
+            console.log("doctet"+this.state.doctorId)
+            console.log(typeof(this.state.doctorId))
+            console.log(accounts[0])
+            console.log(typeof(accounts[0]))
             let res = await healthRecord.methods.grantAcessToDoctor(this.state.doctorId).send({from:accounts[0]})
            
             
@@ -212,13 +217,13 @@ class Patient extends Component {
                                 }) 
                             }
                         </Panel>
-                        {/* <Panel header="Doctors List" key="2">
-                            { 
+                        <Panel header="Doctors List" key="2">
+                            {/* { 
                                 doctor_list.map((doctor) => {
                                     return <Tag>{doctor}</Tag>
                                 }) 
-                            }
-                        </Panel> */}
+                            } */}
+                        </Panel>
                     </Collapse>
                 </Row>
             </div>

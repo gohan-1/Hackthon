@@ -62,29 +62,28 @@ function checkProfile(address _user) public view returns(string memory, string m
 
     }
 
-    function grantAcessToDoctor(address  _docterId) public patientExits(msg.sender) doctorExist(_docterId){
+    function grantAcessToDoctor(address  _docterId) public {
         patient storage p = patients[msg.sender];
-        doctor memory d = doctors[_docterId];
+        // doctor memory d = doctors[_docterId];
 
-        // require(patientToDoctor[msg.sender][_docterId]<1);//already hav permission
+        require(patientToDoctor[msg.sender][_docterId]<1);//already hav permission
     
         // uint pos= p.doctorList.push(_docterId);
-        p.doctorList[patientCount]=_docterId;
+        doctorList[msg.sender][patientCount++]=_docterId;
         patientToDoctor[msg.sender][_docterId]=patientCount;
-        d.patientsList[patientCount]=msg.sender;
-        patientCount=patientCount+1;
+        patientsList[_docterId].push(msg.sender);
+    
     }
 
     function getPatientInfoForDocter(address  _pat) public view patientExits(_pat) doctorExist(msg.sender) returns(string memory _name,uint age,address id,bytes32  files ){
       patient memory p = patients[_pat]; 
-      require(doctorToPainent[msg.sender][_pat]>1);
+    //   require(doctorToPainent[msg.sender][_pat]>1);
       return  (p.name,p.age,p.id,p.files);
     }
 
 
 
-    function getFileInfoDoctor(address    doc, address   pat, bytes32  fileHashId) public view 
-    onlyowner  patientExits(pat) doctorExist(doc)  CheckfileAccess("doctor",doc,fileHashId,pat)returns (string memory name, string memory types){
+    function getFileInfoDoctor(address    doc, address   pat, bytes32  fileHashId) public view returns (string memory name, string memory types){
         filesInfo memory f= getFileInfo(fileHashId);
         return(f.file_name,f.file_type);
     }

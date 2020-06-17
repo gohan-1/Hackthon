@@ -4,8 +4,9 @@ contract Patient{
     mapping(address => patient) public patients;
     mapping(address=> mapping(address=>uint)) public patientToDoctor;
      mapping(address=> bytes32) public patienToFile;
-    uint256 public fileCount=0;
-     uint256 public patientCount=0;
+      mapping(address => mapping(uint32 => address)) public doctorList;
+    uint32 public fileCount=1;
+     uint32 public patientCount=1;
 
 
     struct patient{
@@ -14,8 +15,7 @@ contract Patient{
         address id;
         bytes32 files;
         
-        
-        mapping(uint => address) doctorList;
+       
     }
     modifier patientExits(address  _id){
          
@@ -36,11 +36,11 @@ contract Patient{
     function patientInfo() public view patientExits(msg.sender) returns(string memory _name,uint  _age,bytes32  _files,address[] memory  _list){
         patient storage d= patients[msg.sender];
 
-        if(patientCount>0){
+        if(patientCount>1){
 
          address[] memory ret = new address[](patientCount);
-         for (uint i = 0; i <= patientCount; i++) {
-        ret[i] = d.doctorList[patientCount];
+         for (uint32 i = 0; i <= patientCount; i++) {
+        ret[i] = doctorList[msg.sender][i];
         }
 
         return(d.name,d.age,d.files,ret);

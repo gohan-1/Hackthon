@@ -1,10 +1,12 @@
 pragma solidity >=0.4.21 <0.7.0;
-
+pragma experimental ABIEncoderV2;
 contract Patient{
     mapping(address => patient) public patients;
-    mapping(address=> mapping(address=>uint)) public patientToDoctor;
-     mapping(address=> bytes32) public patienToFile;
-      mapping(address => mapping(uint32 => address)) public doctorList;
+    mapping(address=> mapping(address=>uint32)) public patientToDoctor;
+     mapping(address=> mapping(string=> uint32)) patienToFile;
+      mapping(address =>  address[]) public doctorList;
+      mapping(address => string[]) public   files;
+
     uint32 public fileCount=1;
      uint32 public patientCount=1;
 
@@ -13,7 +15,7 @@ contract Patient{
            string name;
         uint8 age;
         address id;
-        bytes32 files;
+
         
        
     }
@@ -28,26 +30,17 @@ contract Patient{
         require(keccak256(abi.encodePacked(""))!=keccak256(abi.encodePacked(_name)));
         patient memory p= patients[msg.sender];
             require(!(p.id > address(0)),"ID ALREADY EXIST");
-            patients[msg.sender]=patient({name:_name,age:_age,id:msg.sender,files:''});
+            patients[msg.sender]=patient({name:_name,age:_age,id:msg.sender});
 
     }
 
         
-    function patientInfo() public view patientExits(msg.sender) returns(string memory _name,uint  _age,bytes32  _files,address[] memory  _list){
+    function patientInfo() public view patientExits(msg.sender) returns(string memory _name,uint  _age,string[] memory  _files,address[] memory  _list){
         patient storage d= patients[msg.sender];
 
-        if(patientCount>1){
 
-         address[] memory ret = new address[](patientCount);
-         for (uint32 i = 0; i <= patientCount; i++) {
-        ret[i] = doctorList[msg.sender][i];
-        }
-
-        return(d.name,d.age,d.files,ret);
-        }
-        else{
-            return(d.name,d.age,d.files,new address[](0));
-        }
+    
+        return(d.name,d.age,files[msg.sender],doctorList[msg.sender]);
     }
 
 }

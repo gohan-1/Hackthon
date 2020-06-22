@@ -14,6 +14,7 @@ class Patient extends Component {
 
     constructor(props){
         super(props);
+        this.array=[]
         //this.onChange = this.onChange.bind(this);
     }
 
@@ -27,7 +28,8 @@ class Patient extends Component {
         doctorId: null,
         secret: null,
         visible: false,
-        account:''
+        account:'',
+        arr:[]
     }
 
     componentDidMount(){
@@ -49,50 +51,62 @@ class Patient extends Component {
     async loadPatient(healthRecord){
         let {  web3 } = this.props.global_vars;
         let accounts= await web3.eth.getAccounts()
-        console.log("account"+accounts[0])
+        //console.log("account"+accounts[0])
         this.setState({account:accounts[0]})
-        console.log("file1 working")
+        //console.log("file1 working")
         let res = await healthRecord.methods.patientInfo().call({from:accounts[0]})
-        console.log("file1"+typeof(res[4]))
-        if(res[4]){
+        //console.log("file1"+typeof(res[4]))
+        console.log("from patient"+res[3])
+        if(res[3]){
+            console.log("docter list"+res[3])
         this.setState({name:res[0],age:parseInt(res[1]),files:res[2],doctor_list:res[3]},
         () => {
+            console.log("first click")
             let  { files } = this.state;
             getFileInfo("patient", files, "", (filesInfo) => {
+                                console.log("filesInfo"+filesInfo);
+
                 this.setState({filesInfo});
-                console.log("filesInfo"+filesInfo);
+                //console.log("filesInfo"+filesInfo);
             }); 
             
         });
     }
     else{
-        this.setState({name:res[0],age:parseInt(res[1]),files:res[2],doctor_list:''},
+        this.setState({name:res[0],age:parseInt(res[1]),files: this.state.files.concat(res[2])},
         () => {
+            console.log("second click")
             let  { files } = this.state;
+            console.log(this.state.files)
             getFileInfo("patient", files, "", (filesInfo) => {
+                // console.log("file info"+filesInfo[0][0])
                 this.setState({filesInfo});
-                console.log("filesInfo"+filesInfo);
+                console.log("file"+typeof(files))
+                console.log("adad"+typeof(Object.values(files)))
+                //console.log("filesInfo"+filesInfo);
             }); 
             
         });
 
     }
+    
     }
 
     async grantAccess(){
         let { healthRecord, web3 } = this.props.global_vars;
         let accounts= await web3.eth.getAccounts()
-        console.log("doctet"+this.state.doctorId)
+        //console.log("doctet"+this.state.doctorId)
         
         if(this.state.doctorId){
-            console.log("doctet"+this.state.doctorId)
-            console.log(typeof(this.state.doctorId))
-            console.log(accounts[0])
-            console.log(typeof(accounts[0]))
+            //console.log("doctet"+this.state.doctorId)
+            //console.log(typeof(this.state.doctorId))
+            //console.log(accounts[0])
+            //console.log(typeof(accounts[0]))
             let res = await healthRecord.methods.grantAcessToDoctor(this.state.doctorId).send({from:accounts[0]})
            
             
             if(res) {
+                console.log("res of docter"+res.data)
                 message.success('access successful');
                 this.setState({doctorId:null});
             }
@@ -109,13 +123,13 @@ class Patient extends Component {
         multiple: true,
         action: "http://localhost:9090/ipfs_upload",
         beforeUpload: (file, fileList) => {
-            console.log("before")
+            //console.log("before")
             if(file.size > 5242880)// less than 5 MB
                 return false
         },
         headers: {secret: this.state.secret},
         onChange: (info) => {
-            console.log("info started")
+            //console.log("info started")
             //QmQpeUrxtQE5N2SVog1ZCxd7c7RN4fBNQu5aLwkk5RY9ER
             const status = info.file.status;
             if (status !== 'uploading') {
@@ -127,13 +141,13 @@ class Patient extends Component {
 
                     if(response) {
                         message.success('file uploaded successfully to ipfs');
-                        console.log('secret '+response);
+                        //console.log('secret '+response);
                         updateFileHash(name, type, response, this.state.secret);
                     }
                     else
                         message.error("file upload unsuccessful");
                 }
-                console.log(this.state.files)
+                //console.log(this.state.files)
                 message.success(`${info.file.name} file uploaded successfully.`);
             } else if (status === 'error') {
                 message.error(`${info.file.name} file upload failed.`);
@@ -147,7 +161,10 @@ class Patient extends Component {
 
     showFile(hash, flag) {
         let { files, showPopup } = this.state;
+        console.log("froshow "+hash)
         if(files.indexOf(hash) > -1){
+            console.log("froshow inside"+hash)
+
             let showPopupTemp = showPopup.slice(0);
             showPopupTemp[files.indexOf(hash)] = flag;
             this.setState({showPopup:showPopupTemp});
@@ -160,12 +177,17 @@ class Patient extends Component {
         let { web3 } = this.props.global_vars;
         let { token } = this.props.auth;
 
+        let fhash,filename
+      
+        
+
 
         this.fileProps.headers.secret = this.state.secret
         this.fileProps.onChange.bind(this);
 
         return (
             <div>
+           
                 <Row gutter={16} style={{display:"flex",flexDirection:"row",justifyContent:"space-between"}}>
                     <Col className='col-3' span={6}>
                         <Card bordered={true} >
@@ -201,28 +223,23 @@ class Patient extends Component {
                 <Row gutter={16}>
                     <Collapse className='folderTab' defaultActiveKey={['1']}>
                         <Panel   header={<Icon type="folder" />} key="1">
-                            { 
-                            
-                                filesInfo.map(async(fhash, i) => {
-                                    let {  web3 } = this.props.global_vars;
-                                    
-                                    let filename = this.state.filesInfo[i]?this.state.filesInfo[i][0]:null;
-                                    //let diplayImage = "/ipfs_file?hash="+fhash+"&file_name="+filename;
-                                    let diplayImage = "/ipfs_file?hash="+fhash+"&file_name="+filename+
-                                    "&role=patient&token="+token+"&patient_address="+account
-                                    
-                                    let fileProps = {fhash, filename, diplayImage, i};
-                                    
-                                    return <DisplayFiles that={this} props={fileProps}/>
-                                }) 
-                            }
+                        {Object.keys(files).map((key,i) => <div>{files[key]}
+                         
+                         
+
+                         <DisplayFiles that={this} fhash={files[key]} i={i} filename = {this.state.filesInfo[i]?this.state.filesInfo[i][0]:null} diplayImage = {"http://localhost:9090/ipfs_file?hash="+files[key]+"&file_name="+filename+
+                                    "&role=patient&token="+token+"&patient_address="+account}  files={files} token={token} account={account} filesInfo={filesInfo} role="patient"/>
+                
+                
+                </div>)}
+
                         </Panel>
                         <Panel header="Doctors List" key="2">
-                            {/* { 
+                            { 
                                 doctor_list.map((doctor) => {
                                     return <Tag>{doctor}</Tag>
                                 }) 
-                            } */}
+                            }
                         </Panel>
                     </Collapse>
                 </Row>

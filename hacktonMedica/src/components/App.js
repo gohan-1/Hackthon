@@ -11,7 +11,7 @@ import {connect} from "react-redux";
 import { setGlobalData } from '../actions/global_vars';
 import { logoutProxy } from '../actions/auth';
 
-// import '../css/oswald.css'
+import '../css/oswald.css'
 // import '../css/open-sans.css'
 import '../css/pure-min.css'
 import '../css/generic.css'

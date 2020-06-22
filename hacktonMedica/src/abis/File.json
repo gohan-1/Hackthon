@@ -1,24 +1,24 @@
 {
   "contractName": "File",
   "abi": [],
-  "bytecode": "0x6080604052348015600f57600080fd5b50603580601d6000396000f3fe6080604052600080fdfea165627a7a723058208d7c02d56c25652f273b3df4ecb25bb062ad717514efa35b11bfb7dd78144ef00029",
-  "deployedBytecode": "0x6080604052600080fdfea165627a7a723058208d7c02d56c25652f273b3df4ecb25bb062ad717514efa35b11bfb7dd78144ef00029",
-  "sourceMap": "34:484:2:-;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;34:484:2;;;;;;;",
-  "deployedSourceMap": "34:484:2:-;;;;;",
-  "source": "pragma solidity >=0.4.21 <0.7.0;\n\ncontract File{\n    mapping (bytes32 => filesInfo) internal hashInfo;\n\n    struct  filesInfo{\n        string file_name;\n        string file_type;\n        string file_secret;\n    }\n\n    modifier fileCheck(bytes32 _hashID){\n         bytes memory tempData =  bytes(hashInfo[_hashID].file_name);\n        require(tempData.length >0) ;\n        _;\n\n    }\n\n    function getFileInfo(bytes32 _hashID) internal view returns(filesInfo memory filesinfo){\n\n        return hashInfo[_hashID];\n\n    }\n}",
+  "bytecode": "0x6080604052348015600f57600080fd5b50603580601d6000396000f3fe6080604052600080fdfea165627a7a72305820490de331f8de410cf9e5dcfe5352e78f2b2b1a0e7ef8d3822de405c75c402c520029",
+  "deployedBytecode": "0x6080604052600080fdfea165627a7a72305820490de331f8de410cf9e5dcfe5352e78f2b2b1a0e7ef8d3822de405c75c402c520029",
+  "sourceMap": "34:495:2:-;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;34:495:2;;;;;;;",
+  "deployedSourceMap": "34:495:2:-;;;;;",
+  "source": "pragma solidity >=0.4.21 <0.7.0;\n\ncontract File{\n    mapping (string => filesInfo) internal hashInfo;\n\n    struct  filesInfo{\n        string file_name;\n        string file_type;\n        string file_secret;\n    }\n\n    modifier fileCheck(string memory _hashID){\n         bytes memory tempData =  bytes(hashInfo[_hashID].file_name);\n        require(tempData.length >0) ;\n        _;\n\n    }\n\n    function getFileInfo(string memory _hashID) internal view returns(filesInfo memory filesinfo){\n\n        return hashInfo[_hashID];\n\n    }\n}",
   "sourcePath": "/home/vishnuskrishnan/hacktonMedica/src/contracts/file.sol",
   "ast": {
     "absolutePath": "/home/vishnuskrishnan/hacktonMedica/src/contracts/file.sol",
     "exportedSymbols": {
       "File": [
-        226
+        225
       ]
     },
-    "id": 227,
+    "id": 226,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 180,
+        "id": 179,
         "literals": [
           "solidity",
           ">=",
@@ -37,53 +37,53 @@
         "contractKind": "contract",
         "documentation": null,
         "fullyImplemented": true,
-        "id": 226,
+        "id": 225,
         "linearizedBaseContracts": [
-          226
+          225
         ],
         "name": "File",
         "nodeType": "ContractDefinition",
         "nodes": [
           {
             "constant": false,
-            "id": 184,
+            "id": 183,
             "name": "hashInfo",
             "nodeType": "VariableDeclaration",
-            "scope": 226,
-            "src": "53:48:2",
+            "scope": 225,
+            "src": "53:47:2",
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
-              "typeIdentifier": "t_mapping$_t_bytes32_$_t_struct$_filesInfo_$191_storage_$",
-              "typeString": "mapping(bytes32 => struct File.filesInfo)"
+              "typeIdentifier": "t_mapping$_t_string_memory_$_t_struct$_filesInfo_$190_storage_$",
+              "typeString": "mapping(string => struct File.filesInfo)"
             },
             "typeName": {
-              "id": 183,
+              "id": 182,
               "keyType": {
-                "id": 181,
-                "name": "bytes32",
+                "id": 180,
+                "name": "string",
                 "nodeType": "ElementaryTypeName",
-                "src": "62:7:2",
+                "src": "62:6:2",
                 "typeDescriptions": {
-                  "typeIdentifier": "t_bytes32",
-                  "typeString": "bytes32"
+                  "typeIdentifier": "t_string_storage_ptr",
+                  "typeString": "string"
                 }
               },
               "nodeType": "Mapping",
-              "src": "53:30:2",
+              "src": "53:29:2",
               "typeDescriptions": {
-                "typeIdentifier": "t_mapping$_t_bytes32_$_t_struct$_filesInfo_$191_storage_$",
-                "typeString": "mapping(bytes32 => struct File.filesInfo)"
+                "typeIdentifier": "t_mapping$_t_string_memory_$_t_struct$_filesInfo_$190_storage_$",
+                "typeString": "mapping(string => struct File.filesInfo)"
               },
               "valueType": {
                 "contractScope": null,
-                "id": 182,
+                "id": 181,
                 "name": "filesInfo",
                 "nodeType": "UserDefinedTypeName",
-                "referencedDeclaration": 191,
-                "src": "73:9:2",
+                "referencedDeclaration": 190,
+                "src": "72:9:2",
                 "typeDescriptions": {
-                  "typeIdentifier": "t_struct$_filesInfo_$191_storage_ptr",
+                  "typeIdentifier": "t_struct$_filesInfo_$190_storage_ptr",
                   "typeString": "struct File.filesInfo"
                 }
               }
@@ -93,15 +93,15 @@
           },
           {
             "canonicalName": "File.filesInfo",
-            "id": 191,
+            "id": 190,
             "members": [
               {
                 "constant": false,
-                "id": 186,
+                "id": 185,
                 "name": "file_name",
                 "nodeType": "VariableDeclaration",
-                "scope": 191,
-                "src": "135:16:2",
+                "scope": 190,
+                "src": "134:16:2",
                 "stateVariable": false,
                 "storageLocation": "default",
                 "typeDescriptions": {
@@ -109,10 +109,10 @@
                   "typeString": "string"
                 },
                 "typeName": {
-                  "id": 185,
+                  "id": 184,
                   "name": "string",
                   "nodeType": "ElementaryTypeName",
-                  "src": "135:6:2",
+                  "src": "134:6:2",
                   "typeDescriptions": {
                     "typeIdentifier": "t_string_storage_ptr",
                     "typeString": "string"
@@ -123,11 +123,11 @@
               },
               {
                 "constant": false,
-                "id": 188,
+                "id": 187,
                 "name": "file_type",
                 "nodeType": "VariableDeclaration",
-                "scope": 191,
-                "src": "161:16:2",
+                "scope": 190,
+                "src": "160:16:2",
                 "stateVariable": false,
                 "storageLocation": "default",
                 "typeDescriptions": {
@@ -135,10 +135,10 @@
                   "typeString": "string"
                 },
                 "typeName": {
-                  "id": 187,
+                  "id": 186,
                   "name": "string",
                   "nodeType": "ElementaryTypeName",
-                  "src": "161:6:2",
+                  "src": "160:6:2",
                   "typeDescriptions": {
                     "typeIdentifier": "t_string_storage_ptr",
                     "typeString": "string"
@@ -149,11 +149,11 @@
               },
               {
                 "constant": false,
-                "id": 190,
+                "id": 189,
                 "name": "file_secret",
                 "nodeType": "VariableDeclaration",
-                "scope": 191,
-                "src": "187:18:2",
+                "scope": 190,
+                "src": "186:18:2",
                 "stateVariable": false,
                 "storageLocation": "default",
                 "typeDescriptions": {
@@ -161,10 +161,10 @@
                   "typeString": "string"
                 },
                 "typeName": {
-                  "id": 189,
+                  "id": 188,
                   "name": "string",
                   "nodeType": "ElementaryTypeName",
-                  "src": "187:6:2",
+                  "src": "186:6:2",
                   "typeDescriptions": {
                     "typeIdentifier": "t_string_storage_ptr",
                     "typeString": "string"
@@ -176,28 +176,28 @@
             ],
             "name": "filesInfo",
             "nodeType": "StructDefinition",
-            "scope": 226,
-            "src": "108:104:2",
+            "scope": 225,
+            "src": "107:104:2",
             "visibility": "public"
           },
           {
             "body": {
-              "id": 212,
+              "id": 211,
               "nodeType": "Block",
-              "src": "253:127:2",
+              "src": "258:127:2",
               "statements": [
                 {
                   "assignments": [
-                    196
+                    195
                   ],
                   "declarations": [
                     {
                       "constant": false,
-                      "id": 196,
+                      "id": 195,
                       "name": "tempData",
                       "nodeType": "VariableDeclaration",
-                      "scope": 212,
-                      "src": "264:21:2",
+                      "scope": 211,
+                      "src": "269:21:2",
                       "stateVariable": false,
                       "storageLocation": "memory",
                       "typeDescriptions": {
@@ -205,10 +205,10 @@
                         "typeString": "bytes"
                       },
                       "typeName": {
-                        "id": 195,
+                        "id": 194,
                         "name": "bytes",
                         "nodeType": "ElementaryTypeName",
-                        "src": "264:5:2",
+                        "src": "269:5:2",
                         "typeDescriptions": {
                           "typeIdentifier": "t_bytes_storage_ptr",
                           "typeString": "bytes"
@@ -218,7 +218,7 @@
                       "visibility": "internal"
                     }
                   ],
-                  "id": 203,
+                  "id": 202,
                   "initialValue": {
                     "argumentTypes": null,
                     "arguments": [
@@ -228,29 +228,29 @@
                           "argumentTypes": null,
                           "baseExpression": {
                             "argumentTypes": null,
-                            "id": 198,
+                            "id": 197,
                             "name": "hashInfo",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 184,
-                            "src": "295:8:2",
+                            "referencedDeclaration": 183,
+                            "src": "300:8:2",
                             "typeDescriptions": {
-                              "typeIdentifier": "t_mapping$_t_bytes32_$_t_struct$_filesInfo_$191_storage_$",
-                              "typeString": "mapping(bytes32 => struct File.filesInfo storage ref)"
+                              "typeIdentifier": "t_mapping$_t_string_memory_$_t_struct$_filesInfo_$190_storage_$",
+                              "typeString": "mapping(string memory => struct File.filesInfo storage ref)"
                             }
                           },
-                          "id": 200,
+                          "id": 199,
                           "indexExpression": {
                             "argumentTypes": null,
-                            "id": 199,
+                            "id": 198,
                             "name": "_hashID",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 193,
-                            "src": "304:7:2",
+                            "referencedDeclaration": 192,
+                            "src": "309:7:2",
                             "typeDescriptions": {
-                              "typeIdentifier": "t_bytes32",
-                              "typeString": "bytes32"
+                              "typeIdentifier": "t_string_memory_ptr",
+                              "typeString": "string memory"
                             }
                           },
                           "isConstant": false,
@@ -258,21 +258,21 @@
                           "isPure": false,
                           "lValueRequested": false,
                           "nodeType": "IndexAccess",
-                          "src": "295:17:2",
+                          "src": "300:17:2",
                           "typeDescriptions": {
-                            "typeIdentifier": "t_struct$_filesInfo_$191_storage",
+                            "typeIdentifier": "t_struct$_filesInfo_$190_storage",
                             "typeString": "struct File.filesInfo storage ref"
                           }
                         },
-                        "id": 201,
+                        "id": 200,
                         "isConstant": false,
                         "isLValue": true,
                         "isPure": false,
                         "lValueRequested": false,
                         "memberName": "file_name",
                         "nodeType": "MemberAccess",
-                        "referencedDeclaration": 186,
-                        "src": "295:27:2",
+                        "referencedDeclaration": 185,
+                        "src": "300:27:2",
                         "typeDescriptions": {
                           "typeIdentifier": "t_string_storage",
                           "typeString": "string storage ref"
@@ -286,20 +286,20 @@
                           "typeString": "string storage ref"
                         }
                       ],
-                      "id": 197,
+                      "id": 196,
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": true,
                       "lValueRequested": false,
                       "nodeType": "ElementaryTypeNameExpression",
-                      "src": "289:5:2",
+                      "src": "294:5:2",
                       "typeDescriptions": {
                         "typeIdentifier": "t_type$_t_bytes_storage_ptr_$",
                         "typeString": "type(bytes storage pointer)"
                       },
                       "typeName": "bytes"
                     },
-                    "id": 202,
+                    "id": 201,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -307,14 +307,14 @@
                     "lValueRequested": false,
                     "names": [],
                     "nodeType": "FunctionCall",
-                    "src": "289:34:2",
+                    "src": "294:34:2",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bytes_storage_ptr",
                       "typeString": "bytes storage pointer"
                     }
                   },
                   "nodeType": "VariableDeclarationStatement",
-                  "src": "264:59:2"
+                  "src": "269:59:2"
                 },
                 {
                   "expression": {
@@ -326,7 +326,7 @@
                           "typeIdentifier": "t_uint256",
                           "typeString": "uint256"
                         },
-                        "id": 208,
+                        "id": 207,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": false,
@@ -335,18 +335,18 @@
                           "argumentTypes": null,
                           "expression": {
                             "argumentTypes": null,
-                            "id": 205,
+                            "id": 204,
                             "name": "tempData",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 196,
-                            "src": "341:8:2",
+                            "referencedDeclaration": 195,
+                            "src": "346:8:2",
                             "typeDescriptions": {
                               "typeIdentifier": "t_bytes_memory_ptr",
                               "typeString": "bytes memory"
                             }
                           },
-                          "id": 206,
+                          "id": 205,
                           "isConstant": false,
                           "isLValue": false,
                           "isPure": false,
@@ -354,7 +354,7 @@
                           "memberName": "length",
                           "nodeType": "MemberAccess",
                           "referencedDeclaration": null,
-                          "src": "341:15:2",
+                          "src": "346:15:2",
                           "typeDescriptions": {
                             "typeIdentifier": "t_uint256",
                             "typeString": "uint256"
@@ -365,14 +365,14 @@
                         "rightExpression": {
                           "argumentTypes": null,
                           "hexValue": "30",
-                          "id": 207,
+                          "id": 206,
                           "isConstant": false,
                           "isLValue": false,
                           "isPure": true,
                           "kind": "number",
                           "lValueRequested": false,
                           "nodeType": "Literal",
-                          "src": "358:1:2",
+                          "src": "363:1:2",
                           "subdenomination": null,
                           "typeDescriptions": {
                             "typeIdentifier": "t_rational_0_by_1",
@@ -380,7 +380,7 @@
                           },
                           "value": "0"
                         },
-                        "src": "341:18:2",
+                        "src": "346:18:2",
                         "typeDescriptions": {
                           "typeIdentifier": "t_bool",
                           "typeString": "bool"
@@ -394,21 +394,21 @@
                           "typeString": "bool"
                         }
                       ],
-                      "id": 204,
+                      "id": 203,
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
-                        903,
-                        904
+                        961,
+                        962
                       ],
-                      "referencedDeclaration": 903,
-                      "src": "333:7:2",
+                      "referencedDeclaration": 961,
+                      "src": "338:7:2",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$returns$__$",
                         "typeString": "function (bool) pure"
                       }
                     },
-                    "id": 209,
+                    "id": 208,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -416,97 +416,97 @@
                     "lValueRequested": false,
                     "names": [],
                     "nodeType": "FunctionCall",
-                    "src": "333:27:2",
+                    "src": "338:27:2",
                     "typeDescriptions": {
                       "typeIdentifier": "t_tuple$__$",
                       "typeString": "tuple()"
                     }
                   },
-                  "id": 210,
+                  "id": 209,
                   "nodeType": "ExpressionStatement",
-                  "src": "333:27:2"
+                  "src": "338:27:2"
                 },
                 {
-                  "id": 211,
+                  "id": 210,
                   "nodeType": "PlaceholderStatement",
-                  "src": "371:1:2"
+                  "src": "376:1:2"
                 }
               ]
             },
             "documentation": null,
-            "id": 213,
+            "id": 212,
             "name": "fileCheck",
             "nodeType": "ModifierDefinition",
             "parameters": {
-              "id": 194,
+              "id": 193,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 193,
+                  "id": 192,
                   "name": "_hashID",
                   "nodeType": "VariableDeclaration",
-                  "scope": 213,
-                  "src": "237:15:2",
+                  "scope": 212,
+                  "src": "236:21:2",
                   "stateVariable": false,
-                  "storageLocation": "default",
+                  "storageLocation": "memory",
                   "typeDescriptions": {
-                    "typeIdentifier": "t_bytes32",
-                    "typeString": "bytes32"
+                    "typeIdentifier": "t_string_memory_ptr",
+                    "typeString": "string"
                   },
                   "typeName": {
-                    "id": 192,
-                    "name": "bytes32",
+                    "id": 191,
+                    "name": "string",
                     "nodeType": "ElementaryTypeName",
-                    "src": "237:7:2",
+                    "src": "236:6:2",
                     "typeDescriptions": {
-                      "typeIdentifier": "t_bytes32",
-                      "typeString": "bytes32"
+                      "typeIdentifier": "t_string_storage_ptr",
+                      "typeString": "string"
                     }
                   },
                   "value": null,
                   "visibility": "internal"
                 }
               ],
-              "src": "236:17:2"
+              "src": "235:23:2"
             },
-            "src": "218:162:2",
+            "src": "217:168:2",
             "visibility": "internal"
           },
           {
             "body": {
-              "id": 224,
+              "id": 223,
               "nodeType": "Block",
-              "src": "473:43:2",
+              "src": "484:43:2",
               "statements": [
                 {
                   "expression": {
                     "argumentTypes": null,
                     "baseExpression": {
                       "argumentTypes": null,
-                      "id": 220,
+                      "id": 219,
                       "name": "hashInfo",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 184,
-                      "src": "491:8:2",
+                      "referencedDeclaration": 183,
+                      "src": "502:8:2",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_mapping$_t_bytes32_$_t_struct$_filesInfo_$191_storage_$",
-                        "typeString": "mapping(bytes32 => struct File.filesInfo storage ref)"
+                        "typeIdentifier": "t_mapping$_t_string_memory_$_t_struct$_filesInfo_$190_storage_$",
+                        "typeString": "mapping(string memory => struct File.filesInfo storage ref)"
                       }
                     },
-                    "id": 222,
+                    "id": 221,
                     "indexExpression": {
                       "argumentTypes": null,
-                      "id": 221,
+                      "id": 220,
                       "name": "_hashID",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 215,
-                      "src": "500:7:2",
+                      "referencedDeclaration": 214,
+                      "src": "511:7:2",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_bytes32",
-                        "typeString": "bytes32"
+                        "typeIdentifier": "t_string_memory_ptr",
+                        "typeString": "string memory"
                       }
                     },
                     "isConstant": false,
@@ -514,85 +514,85 @@
                     "isPure": false,
                     "lValueRequested": false,
                     "nodeType": "IndexAccess",
-                    "src": "491:17:2",
+                    "src": "502:17:2",
                     "typeDescriptions": {
-                      "typeIdentifier": "t_struct$_filesInfo_$191_storage",
+                      "typeIdentifier": "t_struct$_filesInfo_$190_storage",
                       "typeString": "struct File.filesInfo storage ref"
                     }
                   },
-                  "functionReturnParameters": 219,
-                  "id": 223,
+                  "functionReturnParameters": 218,
+                  "id": 222,
                   "nodeType": "Return",
-                  "src": "484:24:2"
+                  "src": "495:24:2"
                 }
               ]
             },
             "documentation": null,
-            "id": 225,
+            "id": 224,
             "implemented": true,
             "kind": "function",
             "modifiers": [],
             "name": "getFileInfo",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 216,
+              "id": 215,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 215,
+                  "id": 214,
                   "name": "_hashID",
                   "nodeType": "VariableDeclaration",
-                  "scope": 225,
-                  "src": "407:15:2",
+                  "scope": 224,
+                  "src": "412:21:2",
                   "stateVariable": false,
-                  "storageLocation": "default",
+                  "storageLocation": "memory",
                   "typeDescriptions": {
-                    "typeIdentifier": "t_bytes32",
-                    "typeString": "bytes32"
+                    "typeIdentifier": "t_string_memory_ptr",
+                    "typeString": "string"
                   },
                   "typeName": {
-                    "id": 214,
-                    "name": "bytes32",
+                    "id": 213,
+                    "name": "string",
                     "nodeType": "ElementaryTypeName",
-                    "src": "407:7:2",
+                    "src": "412:6:2",
                     "typeDescriptions": {
-                      "typeIdentifier": "t_bytes32",
-                      "typeString": "bytes32"
+                      "typeIdentifier": "t_string_storage_ptr",
+                      "typeString": "string"
                     }
                   },
                   "value": null,
                   "visibility": "internal"
                 }
               ],
-              "src": "406:17:2"
+              "src": "411:23:2"
             },
             "returnParameters": {
-              "id": 219,
+              "id": 218,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 218,
+                  "id": 217,
                   "name": "filesinfo",
                   "nodeType": "VariableDeclaration",
-                  "scope": 225,
-                  "src": "446:26:2",
+                  "scope": 224,
+                  "src": "457:26:2",
                   "stateVariable": false,
                   "storageLocation": "memory",
                   "typeDescriptions": {
-                    "typeIdentifier": "t_struct$_filesInfo_$191_memory_ptr",
+                    "typeIdentifier": "t_struct$_filesInfo_$190_memory_ptr",
                     "typeString": "struct File.filesInfo"
                   },
                   "typeName": {
                     "contractScope": null,
-                    "id": 217,
+                    "id": 216,
                     "name": "filesInfo",
                     "nodeType": "UserDefinedTypeName",
-                    "referencedDeclaration": 191,
-                    "src": "446:9:2",
+                    "referencedDeclaration": 190,
+                    "src": "457:9:2",
                     "typeDescriptions": {
-                      "typeIdentifier": "t_struct$_filesInfo_$191_storage_ptr",
+                      "typeIdentifier": "t_struct$_filesInfo_$190_storage_ptr",
                       "typeString": "struct File.filesInfo"
                     }
                   },
@@ -600,33 +600,33 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "445:28:2"
+              "src": "456:28:2"
             },
-            "scope": 226,
-            "src": "386:130:2",
+            "scope": 225,
+            "src": "391:136:2",
             "stateMutability": "view",
             "superFunction": null,
             "visibility": "internal"
           }
         ],
-        "scope": 227,
-        "src": "34:484:2"
+        "scope": 226,
+        "src": "34:495:2"
       }
     ],
-    "src": "0:518:2"
+    "src": "0:529:2"
   },
   "legacyAST": {
     "absolutePath": "/home/vishnuskrishnan/hacktonMedica/src/contracts/file.sol",
     "exportedSymbols": {
       "File": [
-        226
+        225
       ]
     },
-    "id": 227,
+    "id": 226,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 180,
+        "id": 179,
         "literals": [
           "solidity",
           ">=",
@@ -645,53 +645,53 @@
         "contractKind": "contract",
         "documentation": null,
         "fullyImplemented": true,
-        "id": 226,
+        "id": 225,
         "linearizedBaseContracts": [
-          226
+          225
         ],
         "name": "File",
         "nodeType": "ContractDefinition",
         "nodes": [
           {
             "constant": false,
-            "id": 184,
+            "id": 183,
             "name": "hashInfo",
             "nodeType": "VariableDeclaration",
-            "scope": 226,
-            "src": "53:48:2",
+            "scope": 225,
+            "src": "53:47:2",
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
-              "typeIdentifier": "t_mapping$_t_bytes32_$_t_struct$_filesInfo_$191_storage_$",
-              "typeString": "mapping(bytes32 => struct File.filesInfo)"
+              "typeIdentifier": "t_mapping$_t_string_memory_$_t_struct$_filesInfo_$190_storage_$",
+              "typeString": "mapping(string => struct File.filesInfo)"
             },
             "typeName": {
-              "id": 183,
+              "id": 182,
               "keyType": {
-                "id": 181,
-                "name": "bytes32",
+                "id": 180,
+                "name": "string",
                 "nodeType": "ElementaryTypeName",
-                "src": "62:7:2",
+                "src": "62:6:2",
                 "typeDescriptions": {
-                  "typeIdentifier": "t_bytes32",
-                  "typeString": "bytes32"
+                  "typeIdentifier": "t_string_storage_ptr",
+                  "typeString": "string"
                 }
               },
               "nodeType": "Mapping",
-              "src": "53:30:2",
+              "src": "53:29:2",
               "typeDescriptions": {
-                "typeIdentifier": "t_mapping$_t_bytes32_$_t_struct$_filesInfo_$191_storage_$",
-                "typeString": "mapping(bytes32 => struct File.filesInfo)"
+                "typeIdentifier": "t_mapping$_t_string_memory_$_t_struct$_filesInfo_$190_storage_$",
+                "typeString": "mapping(string => struct File.filesInfo)"
               },
               "valueType": {
                 "contractScope": null,
-                "id": 182,
+                "id": 181,
                 "name": "filesInfo",
                 "nodeType": "UserDefinedTypeName",
-                "referencedDeclaration": 191,
-                "src": "73:9:2",
+                "referencedDeclaration": 190,
+                "src": "72:9:2",
                 "typeDescriptions": {
-                  "typeIdentifier": "t_struct$_filesInfo_$191_storage_ptr",
+                  "typeIdentifier": "t_struct$_filesInfo_$190_storage_ptr",
                   "typeString": "struct File.filesInfo"
                 }
               }
@@ -701,15 +701,15 @@
           },
           {
             "canonicalName": "File.filesInfo",
-            "id": 191,
+            "id": 190,
             "members": [
               {
                 "constant": false,
-                "id": 186,
+                "id": 185,
                 "name": "file_name",
                 "nodeType": "VariableDeclaration",
-                "scope": 191,
-                "src": "135:16:2",
+                "scope": 190,
+                "src": "134:16:2",
                 "stateVariable": false,
                 "storageLocation": "default",
                 "typeDescriptions": {
@@ -717,10 +717,10 @@
                   "typeString": "string"
                 },
                 "typeName": {
-                  "id": 185,
+                  "id": 184,
                   "name": "string",
                   "nodeType": "ElementaryTypeName",
-                  "src": "135:6:2",
+                  "src": "134:6:2",
                   "typeDescriptions": {
                     "typeIdentifier": "t_string_storage_ptr",
                     "typeString": "string"
@@ -731,11 +731,11 @@
               },
               {
                 "constant": false,
-                "id": 188,
+                "id": 187,
                 "name": "file_type",
                 "nodeType": "VariableDeclaration",
-                "scope": 191,
-                "src": "161:16:2",
+                "scope": 190,
+                "src": "160:16:2",
                 "stateVariable": false,
                 "storageLocation": "default",
                 "typeDescriptions": {
@@ -743,10 +743,10 @@
                   "typeString": "string"
                 },
                 "typeName": {
-                  "id": 187,
+                  "id": 186,
                   "name": "string",
                   "nodeType": "ElementaryTypeName",
-                  "src": "161:6:2",
+                  "src": "160:6:2",
                   "typeDescriptions": {
                     "typeIdentifier": "t_string_storage_ptr",
                     "typeString": "string"
@@ -757,11 +757,11 @@
               },
               {
                 "constant": false,
-                "id": 190,
+                "id": 189,
                 "name": "file_secret",
                 "nodeType": "VariableDeclaration",
-                "scope": 191,
-                "src": "187:18:2",
+                "scope": 190,
+                "src": "186:18:2",
                 "stateVariable": false,
                 "storageLocation": "default",
                 "typeDescriptions": {
@@ -769,10 +769,10 @@
                   "typeString": "string"
                 },
                 "typeName": {
-                  "id": 189,
+                  "id": 188,
                   "name": "string",
                   "nodeType": "ElementaryTypeName",
-                  "src": "187:6:2",
+                  "src": "186:6:2",
                   "typeDescriptions": {
                     "typeIdentifier": "t_string_storage_ptr",
                     "typeString": "string"
@@ -784,28 +784,28 @@
             ],
             "name": "filesInfo",
             "nodeType": "StructDefinition",
-            "scope": 226,
-            "src": "108:104:2",
+            "scope": 225,
+            "src": "107:104:2",
             "visibility": "public"
           },
           {
             "body": {
-              "id": 212,
+              "id": 211,
               "nodeType": "Block",
-              "src": "253:127:2",
+              "src": "258:127:2",
               "statements": [
                 {
                   "assignments": [
-                    196
+                    195
                   ],
                   "declarations": [
                     {
                       "constant": false,
-                      "id": 196,
+                      "id": 195,
                       "name": "tempData",
                       "nodeType": "VariableDeclaration",
-                      "scope": 212,
-                      "src": "264:21:2",
+                      "scope": 211,
+                      "src": "269:21:2",
                       "stateVariable": false,
                       "storageLocation": "memory",
                       "typeDescriptions": {
@@ -813,10 +813,10 @@
                         "typeString": "bytes"
                       },
                       "typeName": {
-                        "id": 195,
+                        "id": 194,
                         "name": "bytes",
                         "nodeType": "ElementaryTypeName",
-                        "src": "264:5:2",
+                        "src": "269:5:2",
                         "typeDescriptions": {
                           "typeIdentifier": "t_bytes_storage_ptr",
                           "typeString": "bytes"
@@ -826,7 +826,7 @@
                       "visibility": "internal"
                     }
                   ],
-                  "id": 203,
+                  "id": 202,
                   "initialValue": {
                     "argumentTypes": null,
                     "arguments": [
@@ -836,29 +836,29 @@
                           "argumentTypes": null,
                           "baseExpression": {
                             "argumentTypes": null,
-                            "id": 198,
+                            "id": 197,
                             "name": "hashInfo",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 184,
-                            "src": "295:8:2",
+                            "referencedDeclaration": 183,
+                            "src": "300:8:2",
                             "typeDescriptions": {
-                              "typeIdentifier": "t_mapping$_t_bytes32_$_t_struct$_filesInfo_$191_storage_$",
-                              "typeString": "mapping(bytes32 => struct File.filesInfo storage ref)"
+                              "typeIdentifier": "t_mapping$_t_string_memory_$_t_struct$_filesInfo_$190_storage_$",
+                              "typeString": "mapping(string memory => struct File.filesInfo storage ref)"
                             }
                           },
-                          "id": 200,
+                          "id": 199,
                           "indexExpression": {
                             "argumentTypes": null,
-                            "id": 199,
+                            "id": 198,
                             "name": "_hashID",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 193,
-                            "src": "304:7:2",
+                            "referencedDeclaration": 192,
+                            "src": "309:7:2",
                             "typeDescriptions": {
-                              "typeIdentifier": "t_bytes32",
-                              "typeString": "bytes32"
+                              "typeIdentifier": "t_string_memory_ptr",
+                              "typeString": "string memory"
                             }
                           },
                           "isConstant": false,
@@ -866,21 +866,21 @@
                           "isPure": false,
                           "lValueRequested": false,
                           "nodeType": "IndexAccess",
-                          "src": "295:17:2",
+                          "src": "300:17:2",
                           "typeDescriptions": {
-                            "typeIdentifier": "t_struct$_filesInfo_$191_storage",
+                            "typeIdentifier": "t_struct$_filesInfo_$190_storage",
                             "typeString": "struct File.filesInfo storage ref"
                           }
                         },
-                        "id": 201,
+                        "id": 200,
                         "isConstant": false,
                         "isLValue": true,
                         "isPure": false,
                         "lValueRequested": false,
                         "memberName": "file_name",
                         "nodeType": "MemberAccess",
-                        "referencedDeclaration": 186,
-                        "src": "295:27:2",
+                        "referencedDeclaration": 185,
+                        "src": "300:27:2",
                         "typeDescriptions": {
                           "typeIdentifier": "t_string_storage",
                           "typeString": "string storage ref"
@@ -894,20 +894,20 @@
                           "typeString": "string storage ref"
                         }
                       ],
-                      "id": 197,
+                      "id": 196,
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": true,
                       "lValueRequested": false,
                       "nodeType": "ElementaryTypeNameExpression",
-                      "src": "289:5:2",
+                      "src": "294:5:2",
                       "typeDescriptions": {
                         "typeIdentifier": "t_type$_t_bytes_storage_ptr_$",
                         "typeString": "type(bytes storage pointer)"
                       },
                       "typeName": "bytes"
                     },
-                    "id": 202,
+                    "id": 201,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -915,14 +915,14 @@
                     "lValueRequested": false,
                     "names": [],
                     "nodeType": "FunctionCall",
-                    "src": "289:34:2",
+                    "src": "294:34:2",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bytes_storage_ptr",
                       "typeString": "bytes storage pointer"
                     }
                   },
                   "nodeType": "VariableDeclarationStatement",
-                  "src": "264:59:2"
+                  "src": "269:59:2"
                 },
                 {
                   "expression": {
@@ -934,7 +934,7 @@
                           "typeIdentifier": "t_uint256",
                           "typeString": "uint256"
                         },
-                        "id": 208,
+                        "id": 207,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": false,
@@ -943,18 +943,18 @@
                           "argumentTypes": null,
                           "expression": {
                             "argumentTypes": null,
-                            "id": 205,
+                            "id": 204,
                             "name": "tempData",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 196,
-                            "src": "341:8:2",
+                            "referencedDeclaration": 195,
+                            "src": "346:8:2",
                             "typeDescriptions": {
                               "typeIdentifier": "t_bytes_memory_ptr",
                               "typeString": "bytes memory"
                             }
                           },
-                          "id": 206,
+                          "id": 205,
                           "isConstant": false,
                           "isLValue": false,
                           "isPure": false,
@@ -962,7 +962,7 @@
                           "memberName": "length",
                           "nodeType": "MemberAccess",
                           "referencedDeclaration": null,
-                          "src": "341:15:2",
+                          "src": "346:15:2",
                           "typeDescriptions": {
                             "typeIdentifier": "t_uint256",
                             "typeString": "uint256"
@@ -973,14 +973,14 @@
                         "rightExpression": {
                           "argumentTypes": null,
                           "hexValue": "30",
-                          "id": 207,
+                          "id": 206,
                           "isConstant": false,
                           "isLValue": false,
                           "isPure": true,
                           "kind": "number",
                           "lValueRequested": false,
                           "nodeType": "Literal",
-                          "src": "358:1:2",
+                          "src": "363:1:2",
                           "subdenomination": null,
                           "typeDescriptions": {
                             "typeIdentifier": "t_rational_0_by_1",
@@ -988,7 +988,7 @@
                           },
                           "value": "0"
                         },
-                        "src": "341:18:2",
+                        "src": "346:18:2",
                         "typeDescriptions": {
                           "typeIdentifier": "t_bool",
                           "typeString": "bool"
@@ -1002,21 +1002,21 @@
                           "typeString": "bool"
                         }
                       ],
-                      "id": 204,
+                      "id": 203,
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
-                        903,
-                        904
+                        961,
+                        962
                       ],
-                      "referencedDeclaration": 903,
-                      "src": "333:7:2",
+                      "referencedDeclaration": 961,
+                      "src": "338:7:2",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$returns$__$",
                         "typeString": "function (bool) pure"
                       }
                     },
-                    "id": 209,
+                    "id": 208,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -1024,97 +1024,97 @@
                     "lValueRequested": false,
                     "names": [],
                     "nodeType": "FunctionCall",
-                    "src": "333:27:2",
+                    "src": "338:27:2",
                     "typeDescriptions": {
                       "typeIdentifier": "t_tuple$__$",
                       "typeString": "tuple()"
                     }
                   },
-                  "id": 210,
+                  "id": 209,
                   "nodeType": "ExpressionStatement",
-                  "src": "333:27:2"
+                  "src": "338:27:2"
                 },
                 {
-                  "id": 211,
+                  "id": 210,
                   "nodeType": "PlaceholderStatement",
-                  "src": "371:1:2"
+                  "src": "376:1:2"
                 }
               ]
             },
             "documentation": null,
-            "id": 213,
+            "id": 212,
             "name": "fileCheck",
             "nodeType": "ModifierDefinition",
             "parameters": {
-              "id": 194,
+              "id": 193,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 193,
+                  "id": 192,
                   "name": "_hashID",
                   "nodeType": "VariableDeclaration",
-                  "scope": 213,
-                  "src": "237:15:2",
+                  "scope": 212,
+                  "src": "236:21:2",
                   "stateVariable": false,
-                  "storageLocation": "default",
+                  "storageLocation": "memory",
                   "typeDescriptions": {
-                    "typeIdentifier": "t_bytes32",
-                    "typeString": "bytes32"
+                    "typeIdentifier": "t_string_memory_ptr",
+                    "typeString": "string"
                   },
                   "typeName": {
-                    "id": 192,
-                    "name": "bytes32",
+                    "id": 191,
+                    "name": "string",
                     "nodeType": "ElementaryTypeName",
-                    "src": "237:7:2",
+                    "src": "236:6:2",
                     "typeDescriptions": {
-                      "typeIdentifier": "t_bytes32",
-                      "typeString": "bytes32"
+                      "typeIdentifier": "t_string_storage_ptr",
+                      "typeString": "string"
                     }
                   },
                   "value": null,
                   "visibility": "internal"
                 }
               ],
-              "src": "236:17:2"
+              "src": "235:23:2"
             },
-            "src": "218:162:2",
+            "src": "217:168:2",
             "visibility": "internal"
           },
           {
             "body": {
-              "id": 224,
+              "id": 223,
               "nodeType": "Block",
-              "src": "473:43:2",
+              "src": "484:43:2",
               "statements": [
                 {
                   "expression": {
                     "argumentTypes": null,
                     "baseExpression": {
                       "argumentTypes": null,
-                      "id": 220,
+                      "id": 219,
                       "name": "hashInfo",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 184,
-                      "src": "491:8:2",
+                      "referencedDeclaration": 183,
+                      "src": "502:8:2",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_mapping$_t_bytes32_$_t_struct$_filesInfo_$191_storage_$",
-                        "typeString": "mapping(bytes32 => struct File.filesInfo storage ref)"
+                        "typeIdentifier": "t_mapping$_t_string_memory_$_t_struct$_filesInfo_$190_storage_$",
+                        "typeString": "mapping(string memory => struct File.filesInfo storage ref)"
                       }
                     },
-                    "id": 222,
+                    "id": 221,
                     "indexExpression": {
                       "argumentTypes": null,
-                      "id": 221,
+                      "id": 220,
                       "name": "_hashID",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 215,
-                      "src": "500:7:2",
+                      "referencedDeclaration": 214,
+                      "src": "511:7:2",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_bytes32",
-                        "typeString": "bytes32"
+                        "typeIdentifier": "t_string_memory_ptr",
+                        "typeString": "string memory"
                       }
                     },
                     "isConstant": false,
@@ -1122,85 +1122,85 @@
                     "isPure": false,
                     "lValueRequested": false,
                     "nodeType": "IndexAccess",
-                    "src": "491:17:2",
+                    "src": "502:17:2",
                     "typeDescriptions": {
-                      "typeIdentifier": "t_struct$_filesInfo_$191_storage",
+                      "typeIdentifier": "t_struct$_filesInfo_$190_storage",
                       "typeString": "struct File.filesInfo storage ref"
                     }
                   },
-                  "functionReturnParameters": 219,
-                  "id": 223,
+                  "functionReturnParameters": 218,
+                  "id": 222,
                   "nodeType": "Return",
-                  "src": "484:24:2"
+                  "src": "495:24:2"
                 }
               ]
             },
             "documentation": null,
-            "id": 225,
+            "id": 224,
             "implemented": true,
             "kind": "function",
             "modifiers": [],
             "name": "getFileInfo",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 216,
+              "id": 215,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 215,
+                  "id": 214,
                   "name": "_hashID",
                   "nodeType": "VariableDeclaration",
-                  "scope": 225,
-                  "src": "407:15:2",
+                  "scope": 224,
+                  "src": "412:21:2",
                   "stateVariable": false,
-                  "storageLocation": "default",
+                  "storageLocation": "memory",
                   "typeDescriptions": {
-                    "typeIdentifier": "t_bytes32",
-                    "typeString": "bytes32"
+                    "typeIdentifier": "t_string_memory_ptr",
+                    "typeString": "string"
                   },
                   "typeName": {
-                    "id": 214,
-                    "name": "bytes32",
+                    "id": 213,
+                    "name": "string",
                     "nodeType": "ElementaryTypeName",
-                    "src": "407:7:2",
+                    "src": "412:6:2",
                     "typeDescriptions": {
-                      "typeIdentifier": "t_bytes32",
-                      "typeString": "bytes32"
+                      "typeIdentifier": "t_string_storage_ptr",
+                      "typeString": "string"
                     }
                   },
                   "value": null,
                   "visibility": "internal"
                 }
               ],
-              "src": "406:17:2"
+              "src": "411:23:2"
             },
             "returnParameters": {
-              "id": 219,
+              "id": 218,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 218,
+                  "id": 217,
                   "name": "filesinfo",
                   "nodeType": "VariableDeclaration",
-                  "scope": 225,
-                  "src": "446:26:2",
+                  "scope": 224,
+                  "src": "457:26:2",
                   "stateVariable": false,
                   "storageLocation": "memory",
                   "typeDescriptions": {
-                    "typeIdentifier": "t_struct$_filesInfo_$191_memory_ptr",
+                    "typeIdentifier": "t_struct$_filesInfo_$190_memory_ptr",
                     "typeString": "struct File.filesInfo"
                   },
                   "typeName": {
                     "contractScope": null,
-                    "id": 217,
+                    "id": 216,
                     "name": "filesInfo",
                     "nodeType": "UserDefinedTypeName",
-                    "referencedDeclaration": 191,
-                    "src": "446:9:2",
+                    "referencedDeclaration": 190,
+                    "src": "457:9:2",
                     "typeDescriptions": {
-                      "typeIdentifier": "t_struct$_filesInfo_$191_storage_ptr",
+                      "typeIdentifier": "t_struct$_filesInfo_$190_storage_ptr",
                       "typeString": "struct File.filesInfo"
                     }
                   },
@@ -1208,20 +1208,20 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "445:28:2"
+              "src": "456:28:2"
             },
-            "scope": 226,
-            "src": "386:130:2",
+            "scope": 225,
+            "src": "391:136:2",
             "stateMutability": "view",
             "superFunction": null,
             "visibility": "internal"
           }
         ],
-        "scope": 227,
-        "src": "34:484:2"
+        "scope": 226,
+        "src": "34:495:2"
       }
     ],
-    "src": "0:518:2"
+    "src": "0:529:2"
   },
   "compiler": {
     "name": "solc",
@@ -1229,7 +1229,7 @@
   },
   "networks": {},
   "schemaVersion": "3.0.2",
-  "updatedAt": "2020-06-15T18:14:42.062Z",
+  "updatedAt": "2020-06-19T08:41:41.977Z",
   "devdoc": {
     "methods": {}
   },

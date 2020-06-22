@@ -18,13 +18,16 @@ class DisplayPatient extends Component {
         patient_age:0,
         patient_files:[],
         filesInfo:[],
+        account:'',
         showPopup:[],
     }
 
-    componentWillMount() {
+   async componentWillMount() {
+     
+        //console.log("doctet"+this.state.doctorId)
         if(this.props.patient_address)
             getPatientInfoForDoctor(this.props.patient_address, (data) => {
-                this.setState({patient_name:data[0],patient_age:data[1].toNumber(),patient_files:data[3]},
+                this.setState({patient_name:data[0],patient_age:parseInt(data[1]) ,patient_files:data[3]},
                 () => {
                     let  { patient_files } = this.state;
                     getFileInfo("doctor", patient_files, this.props.patient_address, (filesInfo) => {
@@ -48,27 +51,28 @@ class DisplayPatient extends Component {
         let { patient_name, patient_age, patient_files } = this.state;
         let { token } = this.props.auth;
 
+        let files,filename
+
         return(
             <div style={{width:"100%"}}>
                 <Card bordered={true} style={flexStyle}>
                     <h4>patient address: {patient_address}</h4>
                     <h4> patien name: {patient_name}</h4>
                     <h4>patient age: {patient_age}</h4>
+                 
                 </Card>
                 <div style={{height: "500px", overflowY: "scroll"}}>
                     <Icon type="folder" /> 
-                    {
-                        patient_files.map((fhash, i) => {
-                            let filename = this.state.filesInfo[i]?this.state.filesInfo[i][0]:null;
-                            let diplayImage = "/ipfs_file?hash="+fhash+"&file_name="+filename+"&token="+token+"&patient_address="+this.props.patient_address;
-                            // let diplayImage = "/ipfs_file?hash="+fhash+"&file_name="+filename+
-                            // "&role=doctor&address="+web3.eth.accounts[0]+"&patient_address="+this.props.patient_address;
-                            
-                            let fileProps = {fhash, filename, diplayImage, i};
-                            
-                            return <DisplayFiles that={this} props={fileProps}/>
-                        })
-                    }
+                
+                     {Object.keys(patient_files).map((key,i) => <div>
+                  
+                      
+                         <DisplayFiles that={this} fhash={patient_files[key]} i={i} filename = {this.state.filesInfo[i]?this.state.filesInfo[i][0]:null} diplayImage = {"http://localhost:9090/ipfs_file?hash="+patient_files[key]+"&file_name="+filename+
+                                    "&role=doctor&address="+this.state.account+"&patient_address="+this.props.patient_address} patient_address={patient_address} files={patient_files}  account={this.state.account}  role="doctor"/>
+                
+                
+                </div>)}
+
                 </div>
             </div>
         );

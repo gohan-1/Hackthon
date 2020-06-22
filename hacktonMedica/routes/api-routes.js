@@ -28,10 +28,14 @@ const getIpfsHashFromBytes32 = (bytes32Hex) => {
 // var upload = multer( { storage: storage } );
 
 let upload  = multer({ storage: multer.memoryStorage() });
+let client_address='';
 
 module.exports = (app) => {
 
-    app.post('/ipfs_upload', upload.single('file'),async (req, res)=>{
+    app.post('/ipfs_upload',upload.single('file'),async (req, res)=>{
+        var web3 = new Web3(new Web3.providers.HttpProvider('http://localhost:7545'));
+        let accounts = await web3.eth.getAccounts;
+        client_address = accounts[0]
         let { secret } = req.headers;
         let file = req.file.buffer;
         console.log("hii"+req.file)
@@ -77,22 +81,31 @@ module.exports = (app) => {
     });
 
     app.get('/ipfs_file', verify_token, async (req, res)=>{
- 
+        var web3 = new Web3(new Web3.providers.HttpProvider('http://localhost:7545'));
+
+        const contract = truffleContract(healthRecord);
+        contract.setProvider(web3.currentProvider);
+        const instance = await contract.deployed();
         const { role , client_address } = res.locals.decoded;
         const { file_name, hash, patient_address } = req.query;
-        const ipf_res = await ipfs.files.get(getIpfsHashFromBytes32(hash));
+        console.log("client_address"+client_address)
+        console.log("hashes"+hash)
+        const ipf_res = await ipfs.files.get(hash);
 
         try {
             if(ipf_res && ipf_res[0]) {
                 // console.log(ipf_res[0].path)
                 // console.log(ipf_res[0].content.toString('utf8'));
                 const content = ipf_res[0].content;
-                const secret = await getWeb3Obj().getHealthCare().getFileSecret(hash, role, client_address, patient_address);
+                const secret = await instance.getFileSecret(hash, role, client_address, patient_address);
                 //const secret = await getWeb3Obj().getHealthCare().getFileSecret.sendTransaction(hash, role, client_address, patient_address,{"from":getWeb3Obj().getWeb3().eth.accounts[0]});
                 // console.log("decrypt "+secret);
                 const decipher = crypto.createDecipher('aes-256-ctr',secret);
                 const dec = Buffer.concat([decipher.update(content) , decipher.final()]);
-                res.end(dec, 'binary');
+                console.log(dec.toString('utf8'))
+    
+                res.send(dec.toString('utf8'))
+                
             }
             else {
                 console.log("ipf fetch error.....");
@@ -112,13 +125,16 @@ module.exports = (app) => {
         contract.setProvider(web3.currentProvider);
         const instance = await contract.deployed();
         // const { role , client_address } = res.locals.decoded;
-        const { role , client_address,patient_address, file_list } = req.body;
+        let { role, file_list , client_address,patient_address } = req.body;
+        console.log("client_address"+file_list)
+
+
         //const { patient_address, address, file_list, role } = req.body;
         let fetchFileInfo;
         if(role == "doctor") {
             fetchFileInfo = file_list.map(async (fileHash) => {
                 let accounts= await web3.eth.getAccounts()
-                // console.log(fileHash);
+                console.log(fileHash+"   ss   "+getIpfsHashFromBytes32(fileHash)  );
                 return await instance.getFileInfoDoctor(client_address,patient_address,fileHash,{from:accounts[0]})
             });
             Promise.all(fetchFileInfo).then((result) => {
@@ -126,10 +142,12 @@ module.exports = (app) => {
             });
         }
         else if(role == "patient"){
-            console.log("file list"+file_list)
-            fetchFileInfo = 
-                 await instance.getFileInfoPatient(client_address,file_list,{from:client_address})
-           
+            // console.log("file list"+file_list)
+            fetchFileInfo = file_list.map(async (fileHash) => {
+                console.log("filehas"+fileHash)
+               return await instance.getFileInfoPatient(client_address,fileHash,{from:client_address})
+            });
+            
             Promise.all(fetchFileInfo).then((result) => {
                 // console.log(result);
                 res.send(result);
